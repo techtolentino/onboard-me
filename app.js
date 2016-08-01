@@ -5,12 +5,12 @@ const express = require('express');
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     swig = require('swig'),
-    bodyParser = require('body-parser');
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var api = require('./routes/api');
-
 
 var app = express();
 
@@ -21,19 +21,18 @@ var swig = new swig.Swig();
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
-// uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(methodOverride('_method'));
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/public', express.static(__dirname + '/public'));
 
-
+// routes
 app.use('/', routes);
 app.use('/users', users);
 app.use('/api', api);
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -44,8 +43,7 @@ app.use(function(req, res, next) {
 
 // error handlers
 
-// development error handler
-// will print stacktrace
+// development error handler will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
@@ -56,8 +54,7 @@ if (app.get('env') === 'development') {
     });
 }
 
-// production error handler
-// no stacktraces leaked to user
+// production error handler - no stacktraces
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
