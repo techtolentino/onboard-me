@@ -6,8 +6,7 @@ const express = require('express');
     cookieParser = require('cookie-parser'),
     swig = require('swig'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    sass = require('node-sass');
+    methodOverride = require('method-override');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
