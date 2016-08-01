@@ -9,7 +9,7 @@ router.get('/tasks', function(req, res) {
 		console.log(tasks);
 		res.render(
 			'api',
-			{title: 'Task API', tasks: tasks}
+			{title: 'Things to accomplish', tasks: tasks}
 		);
 	});
 });
@@ -21,7 +21,7 @@ router.get('/task/:id', function(req, res) {
 		console.log(task)
 		res.render(
 			'task',
-			{title : 'Task API - ' + task.title, task : task}
+			{title : task.title, task : task}
 		);
 	});
 });
